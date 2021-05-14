@@ -1,0 +1,72 @@
+{% block main %}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles/boostrap.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="screen and (max-device-width: 779px)"
+          href="{{url_for('static', filename='styles/mobile.css')}}"/>
+</head>
+<body id="body">
+{% if appMessage %}
+<div class="alert alert-danger" role="alert">{{ appMessage }}</div>
+{% endif %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Youtube Downloader <i class="fa fa-youtube"></i></li>
+    </ol>
+</nav>
+<div class="container">
+    <form class="form-inline" id="search-form" action="/youtube-downloader" method="POST">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="video_search_value" class="sr-only">Musique : </label>
+            <input type="text" name="video_search_value" class="form-control form-control-lg" id="video_search_value"
+                   placeholder="musique..." required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" value="Submit">Search</button>
+    </form>
+    <div class="videos">
+        {% if videos %}
+        {%for v in videos%}
+        <div class="card">
+            <div class="card-body">
+                <iframe width="420" height="315"
+                        src="https://www.youtube.com/embed/{{ v.id.videoId }}" allowfullscreen>
+                </iframe>
+                <form action="/download" target="_blank" method="POST">
+                    <input type="hidden" name="download_video_id" value="{{ v.id.videoId }}">
+                    <input type="hidden" name="download_video_title" value="{{ v.snippet.title }}">
+                    <button class="btn btn-success w-50 p-3" type="submit" value="Submit">Go</button>
+                </form>
+            </div>
+        </div>
+        {%endfor%}
+        {% endif %}
+    </div>
+</div>
+</body>
+
+<style type="text/css">
+    #search-form {
+        padding-top: 78px;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        align-items: baseline;
+    }
+
+    #search-form .form-group {
+        margin-left: 0 !important;
+    }
+
+
+    div.card {
+        text-align: center;
+    }
+
+    .card button {
+        margin-top: 20px;
+    }
+</style>
+
+</html>
+{% endblock %}

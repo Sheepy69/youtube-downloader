@@ -1,0 +1,38 @@
+{% block main %}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles/boostrap.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="screen and (max-device-width: 769px)"
+          href="{{url_for('static', filename='styles/mobile.css')}}"/>
+</head>
+<body id="body">
+{% if appMessage %}
+<div class="alert alert-danger" role="alert">{{ appMessage }}</div>
+{% endif %}
+<div class="container">
+    <h1>My website</h1>
+
+    <div class="card first-card">
+        <h5 class="card-header">Youtube downloader <i class="fa fa-youtube"></i></h5>
+        <div class="card-body">
+            <a href="/youtube-downloader" class="btn btn-primary">Go</a>
+        </div>
+    </div>
+</div>
+</body>
+<style>
+    .container {
+        padding-top: 45px;
+    }
+
+    .card.first-card {
+        margin-top: 45px;
+    }
+
+    .card:not(.first-card) {
+        margin-top: 20px;
+    }
+</style>
+</html>
+{% endblock %}
